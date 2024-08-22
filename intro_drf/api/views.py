@@ -1,12 +1,16 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from django.core.cache import cache
 from .models import *
 from .serializers import *
 
+
+# TODO: FIX THE PLACEMENT OF CACHE
 class InstitutionsView(ListAPIView):
     queryset = Institutions.objects.all()
     serializer_class = InstituionsSerializer
+    permission_classes = [IsAuthenticated,]
 
     def get_queryset(self):
         queryset = super().get_queryset()
